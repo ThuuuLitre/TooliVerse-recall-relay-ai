@@ -14,7 +14,170 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_log: {
+        Row: {
+          action: string
+          created_at: string
+          entity_id: string | null
+          entity_type: string | null
+          id: string
+          metadata: Json
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          entity_id?: string | null
+          entity_type?: string | null
+          id?: string
+          metadata?: Json
+          user_id?: string
+        }
+        Relationships: []
+      }
+      chat_messages: {
+        Row: {
+          content: string
+          created_at: string
+          id: string
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          id?: string
+          role: string
+          thread_id: string
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          id?: string
+          role?: string
+          thread_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chat_messages_thread_id_fkey"
+            columns: ["thread_id"]
+            isOneToOne: false
+            referencedRelation: "chat_threads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chat_threads: {
+        Row: {
+          created_at: string
+          id: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      memories: {
+        Row: {
+          access_count: number
+          category: string
+          content: string
+          created_at: string
+          id: string
+          metadata: Json
+          source_type: string
+          source_url: string | null
+          summary: string | null
+          tags: string[]
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          access_count?: number
+          category?: string
+          content: string
+          created_at?: string
+          id?: string
+          metadata?: Json
+          source_type?: string
+          source_url?: string | null
+          summary?: string | null
+          tags?: string[]
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          access_count?: number
+          category?: string
+          content?: string
+          created_at?: string
+          id?: string
+          metadata?: Json
+          source_type?: string
+          source_url?: string | null
+          summary?: string | null
+          tags?: string[]
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          role: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          role?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          role?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
